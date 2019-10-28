@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/aop
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <!--
+        Spring 框架启动时可以加载多个配置文件到环境中。对于比较复杂的项目，可能对应的配置文件有多个，项目在启动部署时会将多个配置文件同时加载进来.
+        java web项目中，配置文件放置的位置是在项目源文件夹中，即 ./src/main/resources路径下。如果有多个配置文件，只要将所有配置文件都放在该文件夹下，
+        项目在启动部署的时候，就会将所有配置文件都加载进来。
+    -->
+
+    <!--
+    xmlns 即 xml namespace, xml 使用的命名空间
+    xmlns:xsi 即 xml schema instance xml 遵守的具体规范,是xml schame文档http://www.w3.org/2001/XMLSchema-instance的名字，因为xsi更简单，方便引用
+    xsi:schemaLocation 本文档 xml 遵守的规范，即引入的命名空间的具体地址，命名空间和其具体地址中间为一个空格 官方指定
+    利用maven管理spring工程：
+    1. 第一步，先创建一个简单maven项目（quikstart工程）
+    2. 在pom文件中添加spring框架依赖配置（即引入spring框架所需的jar包）
+    3. 创建所需的bean 和 service
+    4. 添加spring配置文件：spring.xml （位置必须在/src/main/resources目录下），并添加Bean配置
+    5. 编写测试类，进行测试
+
+    spring 核心内容：控制翻转，依赖注入，面向切面编程
+
+    -->
+
+    <bean id="userDao" class="com.ddq.dao.UserDao"></bean>
+    <bean id="helloService" class="com.ddq.service.HelloService"></bean>
+    <bean name="productService" class="com.ddq.service.ProductService"></bean>
+    <bean id="loggerAspect" class="com.ddq.aspect.LoggerAspect"></bean>  <!-- 配置切面类-->
+
+    <!-- 配置aop  -->
+    <aop:config>
+        <!-- where：在哪些地方（包.类.方法）做增加，即声明切入点-->
+        <aop:pointcut id="loggerCutPoint" expression="execution(* com.ddq.service.ProductService.*(..))"></aop:pointcut>
+        <!-- what:做什么增强，即声明切面类-->
+        <aop:aspect id="loggerAspect" ref="loggerAspect">
+            <!-- when:在什么时机（方法（此处说的方法即切入点）前/后/前后）做增强 -->
+            <aop:around pointcut-ref="loggerCutPoint" method="log"></aop:around>
+            <!-- 参数around 表示，增强功能的的执行位置在切入点的前和后都会执行 -->
+        </aop:aspect>
+    </aop:config>
+
+</beans>
