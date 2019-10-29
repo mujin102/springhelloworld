@@ -1,5 +1,7 @@
 package com.ddq;
 
+import com.ddq.pojo.JuiceMaker;
+import com.ddq.pojo.Source;
 import com.ddq.service.HelloService;
 import com.ddq.service.ProductService;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class TestSpring {
             正控：若要使用某个对象，需要自己去负责对象的创建
             反控：若要使用某个对象，只需要从 Spring 容器中获取需要使用的对象，不关心对象的创建过程，也就是把创建对象的控制权反转给了Spring框架
             好莱坞法则：Don’t call me ,I’ll call you
-            以上创建ClassPathXmlApplicationContext对象的语句就是创建IOC容器的。
+            以上创建ClassPathXmlApplicationContext对象的语句就是创建IOC容器的，IOC容器是创建，管理bean的。
          */
         HelloService helloService = (HelloService) context.getBean("helloService");
         /*
@@ -33,10 +35,23 @@ public class TestSpring {
         /*
             ApplicationContext 是一个接口
             ClassPathXmlApplicationContext 是一个接口实现类（但是并不是直接实现Application接口）
-            以上语句是利用了java的多态特性，
+            以上语句是利用了java的多态特性
          */
         ProductService pS = (ProductService) context.getBean("productService");
         pS.doSomeService();
+
+    }
+
+    @Test
+    public void test03(){
+        ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"});
+        Source source = (Source) context.getBean("source");
+        System.out.println(source.getFruit());
+        System.out.println(source.getSugar());
+        System.out.println(source.getSize());
+
+        JuiceMaker juiceMaker = (JuiceMaker) context.getBean("juiceMaker");
+        System.out.println(juiceMaker.juiceMake());
 
     }
 

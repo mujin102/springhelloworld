@@ -34,6 +34,17 @@
     <bean name="productService" class="com.ddq.service.ProductService"></bean>
     <bean id="loggerAspect" class="com.ddq.aspect.LoggerAspect"></bean>  <!-- 配置切面类-->
 
+    <!-- 以下source 和juiceMaker这两个bean就是用于演示spring框架的依赖注入的，即通过配置文件，给对象的属性赋值-->
+    <bean name="source" class="com.ddq.pojo.Source">
+        <property name="fruit" value="橘子"/>
+        <property name="sugar" value="无糖"/>
+        <property name="size" value="中杯"/>
+    </bean>
+
+    <bean id="juiceMaker" class="com.ddq.pojo.JuiceMaker">
+        <property name="source" ref="source"/> <!-- 这里使用 ref 来注入另一个对象 -->
+    </bean>
+
     <!-- 配置aop  -->
     <aop:config>
         <!-- where：在哪些地方（包.类.方法）做增加，即声明切入点-->
