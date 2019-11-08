@@ -50,10 +50,10 @@ public class Source {
         return size;
     }
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
+//    @Bean
+//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//        return new PropertySourcesPlaceholderConfigurer();
+//    }
     /*
        如果要使用@PropertySource + @Value 来获取配置文件的值（此时不需要再在 applicationContext.xml文件中添加<context：property-holder />标签）
        就必须要添加这个bean，

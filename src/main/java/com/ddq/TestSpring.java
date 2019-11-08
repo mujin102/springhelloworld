@@ -7,16 +7,28 @@ import com.ddq.service.ProductService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 public class TestSpring {
 
+//        @Value("${usName}")
+//        private String usNmae;
+    /*
+        以上成员变量（usName）的值，不可以通过@Value 的方式从配置文件中获取
+        是因为，TestSpring 这个类的对象并没有交给Spring框架去管理，
+        因为 Spring 的启动点是创建IOC容器，即语句：ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        而，在程序启动时，底层虚拟机加载TestSpring这个类时，在给这个成员变量进行初始化的时候，
+        还没有执行 Spring 的启动语句，而，只有程序执行了Spring 的启动语句时，才会去读取applicationContext.xml文件创建IOC容器，
+        并根据applicationConntext.xml文件中配置的内容创建Bean，以及读取配置文件，并赋值，
+        而，由于 TestSpring 这个类的对象并没有交给Spring去管理，
+        其实，即使是在TestSpring类上添加@Conponent 注解，企图将TestSpring类对象交给Spring去管理，也是无法实现的，
+        因为，当spring 启动，并根据appicationContext.xml 文件 去寻找相关的注解，创建bean 时，TestSpring 类的对象已经创建并执行了，
+        所以，TestSpring 的成员变量 usName 永远没有机会通过@Value 方式获取到配置文件中的值。
 
-//    @Bean
-//    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//        return new PropertySourcesPlaceholderConfigurer();
-//    }
+     */
 
     /*
         关于程序启动的一些理解：
