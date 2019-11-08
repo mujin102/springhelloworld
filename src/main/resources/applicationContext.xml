@@ -2,11 +2,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
    http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
    http://www.springframework.org/schema/aop
-   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.ddq" />  <!-- 配置自动扫描的包 -->
+    <context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8"/>
+    <!-- <context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8"/>  --> <!-- 设置自动加载配置文件 -->
+
+    <!--
+    <context:component-scan base-package="com.ddq" />
+        以上语句是与命名空间context配合使用的，
+        @Controller, @Service, @Repository,@Component  目前4种注解意思是一样，并没有什么区别，区别只是名字不同。
+        当一个类上标注 @Component 注解时候，Spring 框架会自动注册该类的一个实例到 Spring 容器，
+        使用方法：
+        1.使用<context:component-scanbase-package=”XXX”/>扫描被注解的类
+        2. 在类上写注解：
+        @Controller
+        public class TestController {
+        }
+    -->
 
     <!--
         Spring 框架启动时可以加载多个配置文件到环境中。对于比较复杂的项目，可能对应的配置文件有多个，项目在启动部署时会将多个配置文件同时加载进来.
@@ -18,11 +37,12 @@
     xmlns 即 xml namespace, xml 使用的命名空间
     xmlns:xsi 即 xml schema instance xml 遵守的具体规范,是xml schame文档http://www.w3.org/2001/XMLSchema-instance的名字，因为xsi更简单，方便引用
     xsi:schemaLocation 本文档 xml 遵守的规范，即引入的命名空间的具体地址，命名空间和其具体地址中间为一个空格 官方指定
+
     利用maven管理spring工程：
     1. 第一步，先创建一个简单maven项目（quikstart工程）
     2. 在pom文件中添加spring框架依赖配置（即引入spring框架所需的jar包）
-    3. 创建所需的bean 和 service
-    4. 添加spring配置文件：spring.xml （位置必须在/src/main/resources目录下），并添加Bean配置
+    3. 创建所需的bean 和 service 类
+    4. 添加spring配置文件：applicationContext.xml （位置必须在/src/main/resources目录下），并在其中添加Bean配置
     5. 编写测试类，进行测试
 
     spring 核心内容：控制翻转，依赖注入，面向切面编程
