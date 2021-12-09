@@ -19,11 +19,16 @@
   </properties>
 
   <dependencies>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <!-- <scope>test</scope> -->
+      <!-- 在这里添加了<scope>标签项，由于添加了该项，并将该项的值设置为了test，
+           所以，junit模块的作用范围就仅限于test模块（即/srec/test文件夹模块下）
+           因此，在项目源文件包中，就无法使用junit中的相关内容（即使引入了，也会无效）
+      -->
     </dependency>
 
     <!-- 配置spring框架相关的依赖包（beans,控制反转，依赖注入，面向切面编程）-->
@@ -58,11 +63,6 @@
       <artifactId>spring-core</artifactId>
       <version>5.1.5.RELEASE</version>
     </dependency>
-
-
-
-
-
     <!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
     <dependency>
       <groupId>jaxen</groupId>
@@ -77,7 +77,19 @@
       <version>1.6.1</version>
     </dependency>
 
+    <!-- String类的工具类-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.9</version>
+    </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>4.0.2.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
@@ -127,4 +139,5 @@
       </plugins>
     </pluginManagement>
   </build>
+
 </project>
