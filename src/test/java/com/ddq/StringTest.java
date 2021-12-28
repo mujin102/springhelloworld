@@ -11,6 +11,12 @@ public class StringTest {
         /*
             StringBuilder，它是一个可变对象，可以预分配缓冲区，这样，往StringBuilder中新增字符时，不会创建新的临时对象
          */
+        // 新建StringBuilder对象
+        StringBuilder s0 = new StringBuilder();
+        System.out.println("新建一个空StringBuilder = " + s0.toString());
+        System.out.println("空字符串\"\" = " + "");
+
+        // 追加字符
         StringBuilder sb = new StringBuilder(1024);
         for (int i = 0; i < 1000; i++) {
             sb.append(',');   // 追加字符
@@ -18,6 +24,11 @@ public class StringTest {
         }
         String s = sb.toString();
 
+        // 删除子串
+        sb = new StringBuilder("从前有座庙，庙里有个老和尚和小和尚");//建立一个字符缓存区
+        sb.deleteCharAt(8); //删除下标位置为8的字符
+        sb.delete(1, 3); //删除下标位置在1到3的字符，包括1但不包括3
+        System.out.println("操作后的字符串 sb = " + sb);
 
     }
 
@@ -27,6 +38,7 @@ public class StringTest {
         // 新建字符串对象
         String s1 = "Hello!";
         String s2 = new String(new char[]{'H', 'e', 'l', 'l', 'o', '!'});
+
 
         // 字符串比较 必须使用equals()方法而不能用==
         String s3 = "HELLO".toLowerCase();
@@ -143,8 +155,6 @@ public class StringTest {
          */
         char[] cs = "Hello".toCharArray(); // String -> char[]
         s = new String(cs); // char[] -> String
-
-
 
 
     }
